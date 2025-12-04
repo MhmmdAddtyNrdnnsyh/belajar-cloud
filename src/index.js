@@ -8,15 +8,15 @@ dotenv.config();
 
 const app = express();
 
-app.use(express());
+app.use(express.json());
 app.use(cors());
 app.use(responseMiddleware);
 app.use("/api/users", UserRoute);
 
-const startServer = () => {
+const startServer = async () => {
   try {
-    db.authenticate();
-    db.sync();
+    await db.authenticate();
+    await db.sync();
     console.log("db connetc");
     app.listen(process.env.PORT, () => {
       console.log(`app run on http://localhost:${process.env.PORT}`);
